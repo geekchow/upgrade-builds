@@ -1221,7 +1221,7 @@ var UpgradeModule = (function () {
                 // stabilizing
                 setTimeout(function () {
                     var $rootScope = $injector.get('$rootScope');
-                    var subscription = _this.ngZone.onMicrotaskEmpty.subscribe(function () { return $rootScope.$digest(); });
+                    var subscription = _this.ngZone.onMicrotaskEmpty.subscribe(function () { if($rootScope.$$phase === '$digest') return; });
                     $rootScope.$on('$destroy', function () { subscription.unsubscribe(); });
                 }, 0);
             }
